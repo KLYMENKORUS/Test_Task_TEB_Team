@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="column">
+            <div class="jumbotron py-5">
+                <h1 class="display-3 text-shadow text-center">App-Register</h1>
+                <div class="text-center">
+                    <p class="lead">Welcome to my mini application for registering via telegram bot.</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profiles:detail' user_id %}">Click here</a> to login to your account
+                    {% else %}
+                    <a href="https://t.me/register_web_bot">Click here</a> to register and <a href="{% url 'profiles:sign_in' %}">click here</a> to login
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

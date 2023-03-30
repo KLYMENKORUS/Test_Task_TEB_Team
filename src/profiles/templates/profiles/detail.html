@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Account {{ object.first_name }} {{ object.last_name }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-5 mx-auto">
+            <div class="card shadow">
+                <img class="mx-auto d-block mt-4 rounded-circle"
+                     src="{{ object.photo.url }}" alt="photo"
+                     width="150" height="150">
+                <div class="card-body mx-auto d-block">
+                    <h5 class="text-left text-muted">
+                        Username : {{ object.username }}
+                    </h5>
+                    <h5 class="text-left text-muted">
+                        Full name: {{ object.first_name }} {{ object.last_name }}
+                    </h5>
+                    <a class="btn btn-outline-danger" href="">
+                        Delete Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow ">
+                <div class="card-body">
+                <h5 class="card-text text-center font-italic">Updated Profile</h5>
+                    <form action="{% url 'profiles:update' object.pk %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="fieldWrapper">
+                                {% if field.errors %}
+                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                                        {% for error in field.errors %}
+                                            {{ error|safe }}
+                                        {% endfor %}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endif %}
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <input class="btn btn-info mt-3" type="submit" value="Update">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
