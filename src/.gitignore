@@ -109,3 +109,4 @@ static_collected
 /staticfiles
 .idea/
 media
+db.sqlite3
